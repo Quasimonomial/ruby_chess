@@ -1,8 +1,8 @@
 require_relative 'board'
 require_relative 'piece'
-require 'debugger'
+# require 'debugger'
 require 'colorize'
-require 'io/console'
+# require 'io/console'
 
 class Array
   def element_wise_add add_this #adds by element two arrays of the same size
@@ -18,7 +18,7 @@ class Game
     @board.setup_game
     @cursor = [0,0]
     @board.display
-    @turn = colors[0]
+    @turn = colors[1]
   end
   
   def display_board
