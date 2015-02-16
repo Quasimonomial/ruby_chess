@@ -28,7 +28,7 @@
   
   
 class Piece
-  attr_accessor :pos, :rep, :color, :board
+  attr_accessor :pos, :rep, :color, :board, :is_moved
   DIAGONAL = [1, 1], [1, -1], [-1, 1], [-1, -1]
   CARDINAL = [0, 1], [1, 0], [-1, 0], [0, -1]
   
@@ -39,6 +39,7 @@ class Piece
     @color = color
     @board = board
     board[pos] = self
+    @is_moved = false
   end
 
   def dup new_board = board
@@ -100,7 +101,12 @@ class Pawn < Piece
                              !is_moved?
                              
     moves
+  end
+
+  def is_moved?
+    @is_moved
   end 
+
 end
 
 

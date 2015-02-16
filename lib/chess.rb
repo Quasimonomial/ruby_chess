@@ -13,12 +13,12 @@ end
 class Game
   attr_accessor :board, :cursor, :colors, :turn
   def initialize
-    @colors = [:cyan, :green]
+    @colors = [:white, :red]
     @board = Board.new colors
     @board.setup_game
     @cursor = [0,0]
     @board.display
-    @turn = colors[1]
+    @turn = colors[0]
   end
   
   def display_board
@@ -38,68 +38,6 @@ class Game
       puts
     end
   end
-  
-  def get_command
-    STDIN.echo = false
-    STDIN.raw!
-    
-    input = STDIN.getc.chr
-    
-    if input == '\e' then
-      input << STDIN.read_nonblock(2) rescue nil
-    end
-  ensure
-    STDIN.echo = true
-    STDIN.cooked!
-    
-    return input
-  end
-    
-    
-  
-  def get_move
-    #test = io.getch
-    #[pos down, pos_right]
-    #not that up is down, or down is a greter row value
-    
-    
-    move = get_command
-    case move
-    when "8"
-      move = [-1, 0]
-    when "9"
-      move = [-1, 1]
-    when "6"
-      move = [0, 1]
-    when "3"
-      move = [1, 1]
-    when "2"
-      move = [1, 0]
-    when "1"
-      move = [1, -1]
-    when "4"
-      move = [0, -1]
-    when "7"
-      move = [-1, -1]
-    else
-      move = "QUIT"
-   end
-   move
-  end
-  
-  def move_cursor
-    move = get_move
-    return move if !move.is_a?(Array)
-    new_cursor = cursor.element_wise_add(move)
-    @cursor = new_cursor if on_board? new_cursor
-    puts
-    puts
-    puts
-    puts "\e[H\e[2J"
-    display_board
-    return move
-  end
-    
   
   def on_board? pos
     return pos[0] >= 0 && pos[0] < 8 && pos[1] >= 0 && pos[1] < 8
@@ -121,13 +59,31 @@ class Game
     p on_board?([-1, 7])
     p on_board? [3, 3]
     p on_board? [5, 8]
-    #p IO.winsize
-    #while true do move_cursor end
-    while true
-      command = move_cursor
-      break if move_cursor == "QUIT"
-    end
+    board.move([6, 4], [4, 4])
+    self.display_board
+    puts
+    board.move([1, 4], [3, 4])
+    self.display_board
+    puts
+    board.move([7, 3], [3, 7])
+    self.display_board
+    puts
+    board.move([0, 1], [2, 2])
+    self.display_board
+    puts
+    board.move([7, 5], [4, 2])
+    self.display_board
+    puts
+    board.move([0, 6], [2, 5])
+    self.display_board
+    puts
+    board.move([3, 7], [1, 5])
+    self.display_board
+    puts
+    p @board.in_checkmate? 0
+    p @board.in_checkmate? 1
   end
+
   
 end
 

@@ -68,6 +68,7 @@ class Board
     self[end_pos] = current_piece
     self[start_pos] = nil
     current_piece.pos = end_pos
+    current_piece.is_moved = true
   end
   
   def opponents color
@@ -95,29 +96,29 @@ class Board
     
     #set up pawns
     @grid[1].each_with_index do |tile, index|
-      Pawn.new([1, index], colors[0], self, 1)
+      Pawn.new([1, index], colors[1], self, 1)
     end
     @grid[6].each_with_index do |tile, index|
-      Pawn.new([6, index], colors[1], self, -1)
+      Pawn.new([6, index], colors[0], self, -1)
     end
     #this is terrible but lets just do it by hand not very DRY
-    Rook.new([0,0], colors[0], self)
-    Rook.new([0,7], colors[0], self)
-    Knight.new([0,1], colors[0], self)
-    Knight.new([0,6], colors[0], self)
-    Bishop.new([0,2], colors[0], self)
-    Bishop.new([0,5], colors[0], self)
-    Queen.new([0,3], colors[0], self)
-    King.new([0,4], colors[0], self)
+    Rook.new([0,0], colors[1], self)
+    Rook.new([0,7], colors[1], self)
+    Knight.new([0,1], colors[1], self)
+    Knight.new([0,6], colors[1], self)
+    Bishop.new([0,2], colors[1], self)
+    Bishop.new([0,5], colors[1], self)
+    Queen.new([0,3], colors[1], self)
+    King.new([0,4], colors[1], self)
     
-    Rook.new([7,0], colors[1], self)
-    Rook.new([7,7], colors[1], self)
-    Knight.new([7,1], colors[1], self)
-    Knight.new([7,6], colors[1], self)
-    Bishop.new([7,2], colors[1], self)
-    Bishop.new([7,5], colors[1], self)
-    Queen.new([7,3], colors[1], self)
-    King.new([7,4], colors[1], self)
+    Rook.new([7,0], colors[0], self)
+    Rook.new([7,7], colors[0], self)
+    Knight.new([7,1], colors[0], self)
+    Knight.new([7,6], colors[0], self)
+    Bishop.new([7,2], colors[0], self)
+    Bishop.new([7,5], colors[0], self)
+    Queen.new([7,3], colors[0], self)
+    King.new([7,4], colors[0], self)
       
   end
 end
