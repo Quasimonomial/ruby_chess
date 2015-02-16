@@ -22,7 +22,10 @@ class Game
   end
   
   def display_board
+    print "  abcdefgh\n"
     (0...8).each do |i|
+      print (8 - i)
+      print " "
       (0...8).each do |j|
         tile = board[[i, j]]
         if tile.nil?
@@ -30,9 +33,7 @@ class Game
         else
           square = tile.rep
         end
-        square = square.on_red if cursor == [i, j]
         print square
-        #print "V" if cursor == [i, j]
       end
       puts
     end
