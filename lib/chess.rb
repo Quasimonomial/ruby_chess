@@ -44,13 +44,28 @@ class Game
   end
   
   def switch_turn
-    if turn == colors[0]
-      turn = colors[1]
+    if @turn == colors[0]
+      @turn = colors[1]
     else
-      turn = colors[0]
+      @turn = colors[0]
     end
   end
   
+  def start_game
+    self.take_turn
+  end
+
+  def take_turn
+    puts "The Board Position is:"
+    self.display_board
+    puts "#{@turn}, it is your turn."
+    puts "command?"
+    command = gets.chomp
+    self.switch_turn
+    self.take_turn
+
+  end
+
   def test
     puts
     self.display_board
@@ -88,5 +103,5 @@ class Game
 end
 
 game = Game.new
-game.test
+game.start_game
 #magenta is orintation -1
