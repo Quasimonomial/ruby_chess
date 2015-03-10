@@ -53,14 +53,18 @@ class Board
   end
   
   def move start_pos, end_pos
+    return false unless 0 <= start_pos[0] && start_pos[0] <= 7 #i.e. if the user gives us a square not on the board
+    return false unless 0 <= start_pos[1] && start_pos[1] <= 7
+    return false unless 0 <= end_pos[0] && end_pos[0] <= 7
+    return false unless 0 <= end_pos[1] && end_pos[1] <= 7
     current_piece = self[start_pos]
-    raise ArgumentError.new "There is no piece at start_pos!" if current_piece.nil?
-    raise ArgumentError.new "That end_pos is not valid!" if !current_piece.valid_moves.include?(end_pos)
-    #check to see if we cause checkmate with this move
-    
+    return false if current_piece.nil?
+    return false if !current_piece.valid_moves.include?(end_pos)
+    # raise ArgumentError.new "There is no piece at start_pos!" if current_piece.nil?
+    # raise ArgumentError.new "That end_pos is not valid!" if !current_piece.valid_moves.include?(end_pos)
+
     move! start_pos, end_pos
-    #check if move is valid
-    #if move is valid, move!
+    return true
   end
 
   def move! start_pos, end_pos

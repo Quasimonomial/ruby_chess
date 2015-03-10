@@ -46,17 +46,11 @@ class Game
   def process_command command
     puts command
     command_letters = command.split("")
-    p command_letters
     puts origin_y = command_letters[0].ord - 97
     puts origin_x = 8 - command_letters[1].to_i
     puts destination_y = command_letters[2].ord - 97
     puts destination_x = 8 - command_letters[3].to_i
-    @board.move([origin_x, origin_y], [destination_x, destination_y])
-    # command_letters. do |letter|
-    #   letter = letter.to_i
-    # end
-    # board.move([command_letters[0], command_letters[1] ] , 
-      # [command_letters[2], command_letters[3]])
+    return @board.move([origin_x, origin_y], [destination_x, destination_y])
   end
 
   def switch_turn
@@ -75,9 +69,15 @@ class Game
     puts "The Board Position is:"
     self.display_board
     puts "#{@turn}, it is your turn."
-    puts "command?"
-    command = gets.chomp
-    self.process_command command
+    # puts "command?"
+    # command = gets.chomp
+    # command_execution = self.process_command command
+    loop do 
+      puts "command?"
+      command = gets.chomp
+      break if self.process_command command
+      puts "that move is invalid"
+    end
     self.switch_turn
     self.take_turn
 
