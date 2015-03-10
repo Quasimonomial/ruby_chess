@@ -43,6 +43,22 @@ class Game
     return pos[0] >= 0 && pos[0] < 8 && pos[1] >= 0 && pos[1] < 8
   end
   
+  def process_command command
+    puts command
+    command_letters = command.split("")
+    p command_letters
+    puts origin_y = command_letters[0].ord - 97
+    puts origin_x = 8 - command_letters[1].to_i
+    puts destination_y = command_letters[2].ord - 97
+    puts destination_x = 8 - command_letters[3].to_i
+    @board.move([origin_x, origin_y], [destination_x, destination_y])
+    # command_letters. do |letter|
+    #   letter = letter.to_i
+    # end
+    # board.move([command_letters[0], command_letters[1] ] , 
+      # [command_letters[2], command_letters[3]])
+  end
+
   def switch_turn
     if @turn == colors[0]
       @turn = colors[1]
@@ -61,6 +77,7 @@ class Game
     puts "#{@turn}, it is your turn."
     puts "command?"
     command = gets.chomp
+    self.process_command command
     self.switch_turn
     self.take_turn
 
