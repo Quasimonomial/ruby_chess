@@ -61,12 +61,21 @@ class Game
   end
   
   def start_game
+    puts "Welcome to chess!  Putting in moves simply requires you to type them in in this format."
+    puts "'a2a4', for example, moves white's rook pawn ahead too spaces."
+    puts "Remember, you can never end a turn if you are in check."
     self.take_turn
   end
 
   def take_turn
     puts "The Board Position is:"
     self.display_board
+    if @board.in_checkmate? @turn
+      puts "#{@turn} has been checkmated!"
+      self.switch_turn
+      puts "#{@turn} has achieved Victory!"
+      return
+    end
     puts "#{@turn}, it is your turn."
     loop do 
       puts "command?"

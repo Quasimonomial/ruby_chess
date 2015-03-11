@@ -46,10 +46,7 @@ class Board
 
   def in_checkmate? color
     #all_valid_moves
-    #we want to check valid moves, and if there is one return true, this makes the function better
-    #this does not look pretty and might be slightly bad style but I feel it is substantially cheaper in calcualtions
-    piece_pile(color).all? {|piece| piece.valid_moves.empty?} && in_check?(color)#&& in_check? color
-    #in_check? color
+    piece_pile(color).all? {|piece| piece.valid_moves.empty?} && in_check?(color)
   end
   
   def move start_pos, end_pos, turn
