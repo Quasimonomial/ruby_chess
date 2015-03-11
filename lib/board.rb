@@ -63,6 +63,10 @@ class Board
     return false if !current_piece.valid_moves.include?(end_pos)
     return false if self[end_pos] && self[end_pos].color == turn
 
+    if current_piece.move_into_check? end_pos
+      puts "But you are in check!"
+      return false
+    end
     move! start_pos, end_pos
     return true
   end
