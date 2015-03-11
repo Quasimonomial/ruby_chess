@@ -1,3 +1,5 @@
-This is an implementation of Ruby Chess - at the moment it works in principle, there just isn't a very good interface at the moment.
+This is an object-oriented chess game made in Ruby. The board is an ascii grid - I do like my ascii tiles - and you are able to play out a two player game.
 
-Check. checkmate, and movement are all possible, but pawn promotion, en passant, and castling are not.
+The game ends when a player is checkmated.  
+
+En passant and castling are not implemented at this time.
