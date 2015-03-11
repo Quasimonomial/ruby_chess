@@ -52,16 +52,16 @@ class Board
     #in_check? color
   end
   
-  def move start_pos, end_pos
+  def move start_pos, end_pos, turn
     return false unless 0 <= start_pos[0] && start_pos[0] <= 7 #i.e. if the user gives us a square not on the board
     return false unless 0 <= start_pos[1] && start_pos[1] <= 7
     return false unless 0 <= end_pos[0] && end_pos[0] <= 7
     return false unless 0 <= end_pos[1] && end_pos[1] <= 7
+
     current_piece = self[start_pos]
-    return false if current_piece.nil?
+    return false unless current_piece && current_piece.color == turn
     return false if !current_piece.valid_moves.include?(end_pos)
-    # raise ArgumentError.new "There is no piece at start_pos!" if current_piece.nil?
-    # raise ArgumentError.new "That end_pos is not valid!" if !current_piece.valid_moves.include?(end_pos)
+    return false if self[end_pos] && self[end_pos].color == turn
 
     move! start_pos, end_pos
     return true
@@ -95,9 +95,7 @@ class Board
     #initalizes a new board for a new game of chess! to be called by 
     #this is a default chess game with no special rules
     #colors[0] will be on top, colors[1] will be on bottom
-    #assume no pieces on board or this shit gets confusion 
-    
-    
+        
     #set up pawns
     @grid[1].each_with_index do |tile, index|
       Pawn.new([1, index], colors[1], self, 1)
@@ -105,7 +103,7 @@ class Board
     @grid[6].each_with_index do |tile, index|
       Pawn.new([6, index], colors[0], self, -1)
     end
-    #this is terrible but lets just do it by hand not very DRY
+    
     Rook.new([0,0], colors[1], self)
     Rook.new([0,7], colors[1], self)
     Knight.new([0,1], colors[1], self)

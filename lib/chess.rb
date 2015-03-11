@@ -44,13 +44,12 @@ class Game
   end
   
   def process_command command
-    puts command
     command_letters = command.split("")
-    puts origin_y = command_letters[0].ord - 97
-    puts origin_x = 8 - command_letters[1].to_i
-    puts destination_y = command_letters[2].ord - 97
-    puts destination_x = 8 - command_letters[3].to_i
-    return @board.move([origin_x, origin_y], [destination_x, destination_y])
+    origin_y = command_letters[0].ord - 97
+    origin_x = 8 - command_letters[1].to_i
+    destination_y = command_letters[2].ord - 97
+    destination_x = 8 - command_letters[3].to_i
+    return @board.move([origin_x, origin_y], [destination_x, destination_y], @turn)
   end
 
   def switch_turn
@@ -69,9 +68,6 @@ class Game
     puts "The Board Position is:"
     self.display_board
     puts "#{@turn}, it is your turn."
-    # puts "command?"
-    # command = gets.chomp
-    # command_execution = self.process_command command
     loop do 
       puts "command?"
       command = gets.chomp
@@ -81,44 +77,9 @@ class Game
     self.switch_turn
     self.take_turn
 
-  end
-
-  def test
-    puts
-    self.display_board
-    puts
-    p [1, 2] == [1, 2]
-    p on_board?([-1, 7])
-    p on_board? [3, 3]
-    p on_board? [5, 8]
-    board.move([6, 4], [4, 4])
-    self.display_board
-    puts
-    board.move([1, 4], [3, 4])
-    self.display_board
-    puts
-    board.move([7, 3], [3, 7])
-    self.display_board
-    puts
-    board.move([0, 1], [2, 2])
-    self.display_board
-    puts
-    board.move([7, 5], [4, 2])
-    self.display_board
-    puts
-    board.move([0, 6], [2, 5])
-    self.display_board
-    puts
-    board.move([3, 7], [1, 5])
-    self.display_board
-    puts
-    p @board.in_checkmate? 0
-    p @board.in_checkmate? 1
-  end
-
-  
+  end 
 end
 
 game = Game.new
 game.start_game
-#magenta is orintation -1
+
